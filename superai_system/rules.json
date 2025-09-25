@@ -1,0 +1,6 @@
+{
+    "test_rule_1": {
+        "condition": "context[\"value\"] > 5",
+        "action": "context[\"status\"] = \"high\""
+    }
+}
