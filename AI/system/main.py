@@ -4,11 +4,8 @@ import datetime
 import os
 import sys
 
-# Adicionar os diretórios dos módulos ao PYTHONPATH
-sys.path.append(os.path.join(os.path.dirname(__file__), 'superai_programming_module'))
-sys.path.append(os.path.join(os.path.dirname(__file__), 'superai_web_automation_module'))
-sys.path.append(os.path.join(os.path.dirname(__file__), 'superai_os_interactor_module'))
-sys.path.append(os.path.join(os.path.dirname(__file__), 'superai_self_learning_module'))
+# Adicionar o diretório atual (system) ao PYTHONPATH para importações relativas
+sys.path.append(os.path.dirname(__file__))
 
 from superai_programming_module.code_generator import CodeGenerator
 from superai_web_automation_module.web_navigator import WebNavigator
@@ -21,7 +18,7 @@ class SuperAI:
         self.web_navigator = WebNavigator()
         self.os_interactor = OSInteractor()
         self.self_learner = SelfLearner(rules_file="rules.json") # rules.json está no mesmo diretório
-        self.training_log_file = "training_log.txt"
+        self.training_log_file = os.path.join(os.path.dirname(__file__), "training_log.txt")
         self.start_time = None
         self.training_duration_hours = 10
 
@@ -83,9 +80,9 @@ class SuperAI:
             command = ["ls", "-l"]
             success, result_output = self.os_interactor.execute_command(command)
             if success:
-                self._log_training_event("DEBUG", f"Comando OS '{command}' executado com sucesso. Saída parcial: {result_output[:100]}...")
+                self._log_training_event("DEBUG", f"Comando OS \'{command}\' executado com sucesso. Saída parcial: {result_output[:100]}...")
             else:
-                self._log_training_event("WARNING", f"Comando OS '{command}' falhou: {result_output}")
+                self._log_training_event("WARNING", f"Comando OS \'{command}\' falhou: {result_output}")
         except Exception as e: 
             self._log_training_event("ERROR", f"Erro na interação com OS: {e}")
 
